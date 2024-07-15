@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import NewItem from './new-item';
 import ItemList from './item-list';
-import itemsData from './items.json'; // Corrected the import path
-import { useUserAuth } from '../_utils/auth-context'; // Adjust the import path
+import itemsData from './items.json'; 
+import { useUserAuth } from '../_utils/auth-context'; 
 
 const Page = () => {
   const [items, setItems] = useState(itemsData);
@@ -14,12 +14,12 @@ const Page = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/week-8"); // Redirect to the landing page if not logged in
+      router.push("/week-8"); 
     }
   }, [user, router]);
 
   if (!user) {
-    return null; // Render nothing while redirecting
+    return null; 
   }
 
   const handleAddItem = (newItem) => {

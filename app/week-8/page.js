@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from 'next/navigation';
-import { useUserAuth } from "./_utils/auth-context"; // Adjust the import path
+import { useUserAuth } from "./_utils/auth-context";
 
 const LandingPage = () => {
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
