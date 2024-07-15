@@ -1,7 +1,18 @@
-import { useUserAuth } from "./_utils/auth-context";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from 'next/navigation';
+import { useUserAuth } from "./_utils/auth-context"; // Adjust the import path
 
 const LandingPage = () => {
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/week-8/shopping-list");
+    }
+  }, [user, router]);
 
   const handleLogin = async () => {
     try {
