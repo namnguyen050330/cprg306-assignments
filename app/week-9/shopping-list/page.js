@@ -14,7 +14,7 @@ const Page = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/week-8"); 
+      router.push("/login"); // Adjust the route to your login page
     }
   }, [user, router]);
 
@@ -54,7 +54,7 @@ const Page = () => {
   const handleLogout = async () => {
     try {
       await firebaseSignOut();
-      router.push("/week-8");
+      router.push("/login"); // Adjust the route to your login page
     } catch (error) {
       console.error("Error signing out: ", error);
     }

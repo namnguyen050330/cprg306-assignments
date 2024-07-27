@@ -13,10 +13,17 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
-  const gitHubSignIn = () => {
+  const gitHubSignIn = async () => {
     const provider = new GithubAuthProvider();
-    return signInWithPopup(auth, provider);
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      if (error.code !== 'auth/cancelled-popup-request') {
+        console.error("Error during GitHub sign-in: ", error);
+      }
+    }
   };
 
   const firebaseSignOut = () => {
@@ -26,12 +33,13 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false); // Set loading to false when auth state changes
     });
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, gitHubSignIn, firebaseSignOut }}>
+    <AuthContext.Provider value={{ user, gitHubSignIn, firebaseSignOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
